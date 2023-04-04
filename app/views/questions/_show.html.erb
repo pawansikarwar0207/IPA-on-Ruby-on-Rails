@@ -1,0 +1,29 @@
+<div class="modal-body">
+  <div class="mt-3 mb-3">
+    <% if current_user.user_plans.present? %>
+    <%= question.answer %>
+    <% else %>
+    <div class="alert alert-primary" role="alert">
+      <strong>Alert!</strong> You must be a premium user to see the answer.
+    </div>
+    <% end -%>
+  </div>
+  <div class="mb-3">
+    <h5><span class="badge bg-primary fs-6"><%= question.keywords %></span></h5>
+  </div>
+
+  <!-- liking and disliking button -->
+  <% if user_signed_in? %>
+  <% like = current_user.likes.find_by(question: question) %>
+  <% if like.nil? %>
+  <%= button_to "Like", likes_path, params: { like: {question_id: question.id}}, method: :question, class:"btn btn-primary btn-sm fw-bold position-absolute" %>
+  <% else %>
+  <%= button_to "Dislike", like_path(like), params: { like: {question_id: question.id}}, method: :delete, class:"btn btn-primary btn-sm fw-bold position-absolute" %>
+  <% end -%>
+  <% end -%>
+  <span class="position-relative top-0  translate-middle badge rounded-pill bg-danger"><%= question.likes.count%></span>
+</div>
+
+
+
+

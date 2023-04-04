@@ -1,0 +1,44 @@
+<% plan_ids = current_user.user_plans.pluck(:plan_id).uniq %>
+<div class="col-lg-8 mx-auto">
+	<div class="card">
+		<div class="card-body">
+			<h2 class="card-title text-center">Subsription Plan</h2>
+		</div>
+	</div>
+	<div class="row">
+		<% @plans.each do |plan| %>
+		<div class="col-lg-6 mt-3 mb-3">
+			<ul>
+				<li style="list-style: none;" class="subscribe">
+					<div class="card">
+						<div class="card-body">
+							<div class="mb-2">
+								<strong> <%= plan.name  %> </strong> 
+							</div>
+							<div class="mb-2">
+								<strong> <%= plan.price  %> </strong> 
+							</div>
+							<% if plan_ids.include? plan.id %>
+							<p class="badge bg-success fs-6">Current Plan</p>
+							<p class="mt-2 fw-bold">Days remaining in plan: <%= current_user.user_plans.first.remaining_days %></p>
+							<% else %>
+							<%= link_to 'Get Plan', add_user_plan_path(plan_id: plan.id), class:"btn  btn-primary", remote: true %>
+							<% end %>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<% end -%>
+	</div>	
+</div>
+
+<ul class="list-group">
+
+	<% @plans.each do |plan| %>
+	
+	<li class="list-group-item mt-3 <%= (plan_ids.include? plan.id) ? 'active': ''  %>" aria-current="true"> 
+		<strong> <%= plan.name  %> | <%= plan.price  %> </strong> 
+	</li>
+	<% end -%>
+</ul>
