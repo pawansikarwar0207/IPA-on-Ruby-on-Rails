@@ -46,12 +46,27 @@
 						</div>
 						<div id="viewAnswerPage">
 						</div>
-						<div class="modal-footer mt-3">
+						<div class="modal-footer mt-4">
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
 						</div>
 					</div>
 				</div>
 			</div>
+      <!-- <div class="user-reactions mt-5">
+        <%# love_reaction = question.user_reactions.find_by(reactable: question, reactable_type: 'love') %>
+        <%# if @love_reaction.present? %>
+        <%#= link_to question_user_reaction_path(question, love_reaction), method: :delete, class: "user-reaction love btn btn-light position-relative", remote: true do %>
+        <i class="fa-solid fa-heart fa-xl" title="Love"></i>
+        <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%#= question.user_reactions.count %></span>
+        <%# end %>
+        <%# else %>
+        <%#= link_to question_user_reactions_path(question, user_reaction: { reactable_type: 'love' }), method: :post, class:"user-reaction love btn btn-light position-relative", remote: true do %>
+        <i class="fa-solid fa-heart fa-xl" title="Love"></i>
+        <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%#= question.user_reactions.count %></span>
+        <%# end %>
+        <%# end %>
+     </div> -->
+
 		</div>
 	</div>
 	<% end -%>

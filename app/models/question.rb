@@ -10,7 +10,11 @@ class Question < ApplicationRecord
 	has_many :likes
 	has_many :users, through: :likes
 
+	# trix_action_editor
 	has_rich_text :content
+
+	# Polymorphioc associations
+	has_many :user_reactions, as: :reactable
 
 	# sorting the data by likes
 	def self.most_liked

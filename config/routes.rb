@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get 'user_plan/index'
   get 'questions/index'
+  
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations',
@@ -18,6 +19,10 @@ Rails.application.routes.draw do
   get '/add_user_plan', to: 'plans#add_user_plan' 
 
   resources :likes, only: [:create, :destroy]
+
+  resources :questions do
+    resources :user_reactions, only: [:create, :destroy]
+  end
 
   
   

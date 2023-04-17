@@ -77,3 +77,4 @@ gem 'cssbundling-rails'
 gem "letter_opener"
 gem 'ransack'
 
+gem 'razorpay'

@@ -11,19 +11,37 @@
   <div class="mb-3">
     <h5><span class="badge bg-primary fs-6"><%= question.keywords %></span></h5>
   </div>
+  <div>
+    <!-- liking and disliking button -->
+    <% if user_signed_in? %>
+    <% like = current_user.likes.find_by(question: question) %>
+    <% if like.nil? %>
+    <%= button_to  likes_path, params: { like: {question_id: question.id}}, method: :question, class:"btn btn-light position-absolute" do %>
+    <i class="fa-solid fa-thumbs-up fa-xl", title="Like"></i> 
+    <% end -%>
+    <% else %>
+    <%= button_to like_path(like), params: { like: {question_id: question.id}}, method: :delete, class:"btn btn-light position-absolute" do %>
+    <i class="fa-solid fa-thumbs-down fa-xl", title="Dislike"></i>
+    <% end -%>
+    <% end -%>
+    <% end -%>
+    <span class="position-relative top-0  translate-middle badge rounded-pill bg-danger"><%= question.likes.count%></span>
+  </div>
 
-  <!-- liking and disliking button -->
-  <% if user_signed_in? %>
-  <% like = current_user.likes.find_by(question: question) %>
-  <% if like.nil? %>
-  <%= button_to "Like", likes_path, params: { like: {question_id: question.id}}, method: :question, class:"btn btn-primary btn-sm fw-bold position-absolute" %>
-  <% else %>
-  <%= button_to "Dislike", like_path(like), params: { like: {question_id: question.id}}, method: :delete, class:"btn btn-primary btn-sm fw-bold position-absolute" %>
-  <% end -%>
-  <% end -%>
-  <span class="position-relative top-0  translate-middle badge rounded-pill bg-danger"><%= question.likes.count%></span>
+
+  <!-- user-reactions -->
+  <div class="user-reactions mt-5">
+    <% if user_signed_in? %>
+    <%= link_to question_user_reactions_path(question, user_reaction: { reactable_type: 'love' }), method: :post, class:"user-reaction love btn btn-light position-relative", remote: true do %>
+    <i class="fa-solid fa-heart fa-xl ", title="Love"></i>
+    <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count %></span>
+    <% end %>
+
+    <%= link_to question_user_reaction_url(question, user_reaction: { reactable_type: 'love' }), method: :delete, class:"user-reaction love btn btn-light position-relative", remote: true do %>
+    <i class="fa-solid fa-heart fa-xl ", title="Love"></i>
+    <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count %></span>
+    <% end %>  
+    <% end %>
+  </div>
 </div>
-
-
-
 

@@ -1,0 +1,106 @@
+<div>
+  <!-- user_reaction button -->
+  <% if user_signed_in? %>
+  <% user_reaction = current_user.user_reactions.find_by(question: question) %>
+  <% if user_reaction.nil? %>
+  <%= button_to  user_reactions_path, params: { user_reaction: {question_id: question.id}}, method: :question, class:"btn btn-light position-absolute" do %>
+  <i class="bi bi-hand-thumbs-up-fill" style="font-size: 2rem;"></i> 
+  <% end -%>
+  <% else %>
+  <%= button_to user_reaction_path(user_reaction), params: { user_reaction: {question_id: question.id}}, method: :delete, class:"btn btn-light position-absolute" do %>
+  <i class="bi bi-hand-thumbs-down-fill" style="font-size: 2rem;"></i>
+  <% end -%>
+  <% end -%>
+  <% end -%>
+  <span class="position-relative top-0  translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count%></span>
+</div>
+
+
+
+<div class="emoji-reactions mt-5">
+  <button class="btn btn-light"><i class="fa-solid fa-heart fa-2xl mx-3"></i></button>
+  <button class="btn btn-light"><i class="fa-solid fa-face-laugh fa-2xl mx-3"></i></button>
+  <button class="btn btn-light"><i class="fa-solid fa-circle-info fa-2xl mx-3"></i></button>
+  <button class="btn btn-light"><i class="fa-solid fa-hands-clapping fa-2xl mx-3"></i></button>
+  <button class="btn btn-light"><i class="fa-solid fa-lightbulb fa-2xl mx-3"></i></button>
+</div>
+.
+
+
+ <div class="user-reactions mt-5">
+    <% if user_signed_in? %>
+    <%= link_to question_user_reactions_path(question, user_reaction: { reactable_type: 'love' }), method: :post, class:"user-reaction love btn btn-light position-relative", remote: true do %>
+    <i class="fa-solid fa-heart fa-xl ", title="Love"></i>
+    <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count %></span>
+    <% end %>
+
+    <%= link_to question_user_reactions_path(question, user_reaction: { reactable_type: 'laugh' }), method: :post, class:"user-reaction laugh btn btn-light position-relative", remote: true do %>
+    <i class="fa-solid fa-face-laugh fa-xl ", title="Laugh"></i>
+    <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count %></span>
+    <% end %>
+
+    <%= link_to question_user_reactions_path(question, user_reaction: { reactable_type: 'support' }), method: :post, class:"user-reaction support btn btn-light position-relative", remote: true do %>
+    <i class="fa-solid fa-circle-info fa-xl ", title="Support"></i>
+    <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count %></span>
+    <% end %>
+
+    <%= link_to question_user_reactions_path(question, user_reaction: { reactable_type: 'celebrate' }), method: :post, class:"user-reaction celebrate btn btn-light position-relative", remote: true do %>
+    <i class="fa-solid fa-hands-clapping fa-xl ", title="Celebrate"></i>
+    <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count %></span>
+    <% end %>
+
+    <%= link_to question_user_reactions_path(question, user_reaction: { reactable_type: 'insightful' }), method: :post, class:"user-reaction insightful btn btn-light position-relative", remote: true do %>
+    <i class="fa-solid fa-lightbulb fa-xl ", title="Insightful"></i>
+    <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count %></span>
+    <% end %>
+    <% end %>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<%= link_to question_user_reactions_path(question, user_reaction: { reactable_type: 'laugh' }), method: :post, class:"user-reaction laugh btn btn-light position-relative", remote: true do %>
+   <i class="fa-solid fa-face-laugh fa-xl ", title="Laugh"></i>
+   <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count %></span>
+   <% end %>
+
+   <%= link_to question_user_reactions_path(question, user_reaction: { reactable_type: 'support' }), method: :post, class:"user-reaction support btn btn-light position-relative", remote: true do %>
+   <i class="fa-solid fa-circle-info fa-xl ", title="Support"></i>
+   <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count %></span>
+   <% end %>
+
+   <%= link_to question_user_reactions_path(question, user_reaction: { reactable_type: 'celebrate' }), method: :post, class:"user-reaction celebrate btn btn-light position-relative", remote: true do %>
+   <i class="fa-solid fa-hands-clapping fa-xl ", title="Celebrate"></i>
+   <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count %></span>
+   <% end %>
+
+   <%= link_to question_user_reactions_path(question, user_reaction: { reactable_type: 'insightful' }), method: :post, class:"user-reaction insightful btn btn-light position-relative", remote: true do %>
+   <i class="fa-solid fa-lightbulb fa-xl ", title="Insightful"></i>
+   <span class="position-absolute top-0 translate-middle badge rounded-pill bg-danger"><%= question.user_reactions.count %></span>
+   <% end %>
+
+
+
+
+
+
+
+
+
+   <script>
+  $(document).on('ajax:beforeSend', '.user-reaction', function(event, xhr, options) {
+  var $badge = $(this).find('.badge');
+  var $siblings = $(this).siblings('.user-reaction');
+  $siblings.find('.badge').remove();
+  $badge.detach();
+  $badge.appendTo($(this));
+});
+</script>
