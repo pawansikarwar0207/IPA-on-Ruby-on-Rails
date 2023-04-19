@@ -23,9 +23,6 @@ Rails.application.routes.draw do
   resources :questions do
     resources :user_reactions, only: [:create, :destroy]
   end
-
-  
-  
   
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

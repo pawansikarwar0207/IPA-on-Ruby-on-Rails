@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_04_113436) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_19_104757) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -96,6 +96,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_04_113436) do
     t.string "reactable_type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
+    t.string "reaction"
+    t.integer "question_id"
+    t.index ["reactable_type", "reactable_id"], name: "index_user_reactions_on_reactable_type_and_reactable_id"
   end
 
   create_table "users", force: :cascade do |t|

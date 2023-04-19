@@ -16,6 +16,13 @@ class Question < ApplicationRecord
 	# Polymorphioc associations
 	has_many :user_reactions, as: :reactable
 
+
+	# Method to calculate user reactions count for a specific reaction type
+  def user_reactions_count(reaction_type)
+    user_reactions.count
+  end
+ 
+
 	# sorting the data by likes
 	def self.most_liked
 		left_joins(:likes).group(:id).order('count(likes.id) DESC')

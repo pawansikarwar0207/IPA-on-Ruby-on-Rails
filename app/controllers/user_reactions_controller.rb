@@ -1,35 +1,35 @@
 class UserReactionsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
-    @reactable = find_reactable
-    @user_reaction = @reactable.user_reactions.build(user_reaction_params)
-    if @user_reaction.save
-      redirect_to @reactable
+    @question = Question.find(params[:question_id])
+    @user_reaction = UserReaction.new(user_reaction_params)
+    @user_reaction.user = current_user
+    @user_reaction.reactable = @question
+
+  # Destroy previous user reactions for the same user and question
+  previous_reactions = UserReaction.where(user_id: current_user.id, reactable_id: @question.id, reactable_type: "Question")
+  previous_reactions.destroy_all
+
+  if @user_reaction.save
+      # Return the updated count of reactions
+      render json: { success: true, user_reaction: @user_reaction }
     else
-      render :new
-    end
+    # Handle failed save
+    render json: { success: false, errors: @user_reaction.errors }
   end
+end
 
-  def destroy
-    @user_reaction = UserReaction.find(params[:id])
-    if @user_reaction.present?
-      @user_reaction.destroy
-    end
-    redirect_to questions_path
-  end
+# def destroy
+#   @user_reaction = UserReaction.find(params[:id])
+#   @user_reaction.destroy
+#   redirect_to questions_path
+#   # Handle successful destruction
+# end
 
-  private
+private
 
-  def find_reactable
-    params.each do |name, value|
-      if name =~ /(.+)_id$/
-        return $1.classify.constantize.find(value)
-      end
-    end
-
-    nil
-  end
-
-  def user_reaction_params
-    params.require(:user_reaction).permit(:reactable_type, :reactable_id)
-  end
+def user_reaction_params
+  params.require(:user_reaction).permit(:reactable_type, :reactable_id, :user_id, :reaction, :question_id)
+end
 end
