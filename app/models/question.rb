@@ -18,10 +18,10 @@ class Question < ApplicationRecord
 
 
 	# Method to calculate user reactions count for a specific reaction type
-  def user_reactions_count(reaction_type)
-    user_reactions.count
-  end
- 
+	def user_reactions_count(reaction_type)
+		user_reactions.where(reaction_type: reaction_type).count
+	end
+	
 
 	# sorting the data by likes
 	def self.most_liked

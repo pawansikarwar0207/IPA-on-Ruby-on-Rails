@@ -1,0 +1,4 @@
+<% if params[:user_reaction][:reactable_type] %>
+ $('.reaction-<%= params[:user_reaction][:reactable_type] %>').html( <%= @question.user_reactions_count(params[:user_reaction][:reactable_type]) %>);
+ $("#viewAnswerModal").modal('hide');
+<% end %>
