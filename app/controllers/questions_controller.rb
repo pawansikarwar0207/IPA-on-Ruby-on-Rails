@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
     else
       @q = Question.is_premium.ransack(params[:q])
     end
-    @questions = @q.result(distinct: true).most_liked.includes(:likes, :users)
+    @questions = @q.result(distinct: true).most_liked.includes(:likes, :users).page(params[:page])
   end
 
   def show

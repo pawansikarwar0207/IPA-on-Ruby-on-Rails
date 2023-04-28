@@ -26,6 +26,21 @@ Devise.setup do |config|
   # with default "from" parameter.
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
+ if Rails.env.development?
+
+    # config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], scope: 'email', callback_url: "https://b747-2405-201-300b-70fb-dc99-cbdf-4f46-a3a3.ngrok.io/users/auth/google_oauth2/callback"
+    config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH_CLIENT_ID'], ENV['GOOGLE_OAUTH_CLIENT_SECRET'], scope: 'email', callback_url: "http://localhost:3000/users/auth/google_oauth2/callback", provider_ignores_state: false
+
+
+
+  elsif Rails.env.production?
+
+    config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], scope: 'email'
+
+    # config.omniauth :linkedin, Rails.application.credentials.linkedin_production_key, Rails.application.credentials.linkedin_production_secret, callback_url: "https://railsadds.herokuapp.com/users/auth/linkedin/callback", :scope => 'r_basicprofile r_emailaddress'
+  end
+
+
   # Configure the class responsible to send e-mails.
   # config.mailer = 'Devise::Mailer'
 
@@ -271,7 +286,7 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :github, '75183ff0fb00f8da6c11', '903af9f501e22f7bfe292fb7f218e71213433228'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

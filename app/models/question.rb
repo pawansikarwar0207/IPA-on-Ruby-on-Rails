@@ -1,4 +1,5 @@
 class Question < ApplicationRecord
+	paginates_per 10
 
 	validates :title, presence:true, uniqueness:true
 	validates :keywords, presence: true
@@ -15,6 +16,11 @@ class Question < ApplicationRecord
 
 	# Polymorphioc associations
 	has_many :user_reactions, as: :reactable
+
+	has_many :comments, as: :commentable
+
+	validates :title, presence: true
+	
 
 
 	# Method to calculate user reactions count for a specific reaction type

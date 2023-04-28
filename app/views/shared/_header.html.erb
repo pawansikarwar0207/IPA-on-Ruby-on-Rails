@@ -20,6 +20,19 @@
         <%= link_to 'Sign In', new_user_session_path, class:"btn btn-primary" %>
         <% end -%>
       </form>
+      <div class="dropdown mx-2">
+        <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          Login by Social Accounts
+        </a>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li><%= button_to  'Sign with Google', user_google_oauth2_omniauth_authorize_path, method: :post, :data => {turbo: "false"}, class: 'dropdown-item' %></li>
+          <li><%#= button_to  'Sign with Github', user_github_omniauth_authorize_path, method: :post, :data => {turbo: "false"}, class: 'dropdown-item' %></li>
+          <li><%#= button_to  'Sign with Linkedin', user_google_oauth2_omniauth_authorize_path, method: :post, :data => {turbo: "false"}, class: 'dropdown-item' %>
+
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </nav>

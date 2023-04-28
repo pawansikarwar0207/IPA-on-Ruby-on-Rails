@@ -1,0 +1,9 @@
+<div class="container mt-3">
+  <strong class="mt-3 mb-3">Comments : </strong>
+  <% commentable.comments.each do |comment| %>
+  <p class="mt-3" style="border: 1px solid black; padding: 2em;"><%= comment.title %><br>
+    <small class="float-end"><%= time_ago_in_words(comment.created_at) %></small><br>
+    <small class="float-end"><%= comment.user.email %></small>
+  </p> 
+<% end -%>
+</div>
