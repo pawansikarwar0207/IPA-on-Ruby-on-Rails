@@ -1,9 +1,17 @@
 <div class="container mt-3">
   <strong class="mt-3 mb-3">Comments : </strong>
   <% commentable.comments.each do |comment| %>
-  <p class="mt-3" style="border: 1px solid black; padding: 2em;"><%= comment.title %><br>
-    <small class="float-end"><%= time_ago_in_words(comment.created_at) %></small><br>
-    <small class="float-end"><%= comment.user.email %></small>
-  </p> 
-<% end -%>
+  <% if current_user == comment.user || comment.mentions.include?(current_user) %>
+  <div class="row mb-3 mt-3 border">
+    <div class="col-lg-6 mt-2 mb-2">
+      <small>by <%= comment.user.full_name %></small><br>
+      <%= comment.title %><br>
+    </div>
+    <div class="col-lg-6 mt-2 mb-2">
+      <small class="float-end"><%= time_ago_in_words(comment.created_at) %></small><br>
+      <%= button_to "Delete", [@question, comment], class: "btn btn-danger btn-sm mb-2 float-end", method: :delete %>
+    </div>    
+  </div>
+  <% end %>
+  <% end %>
 </div>

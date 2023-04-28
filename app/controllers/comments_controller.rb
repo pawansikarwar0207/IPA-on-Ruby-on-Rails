@@ -15,6 +15,10 @@ class CommentsController < ApplicationController
    end 
  end
 
+ def show
+  @question = Question.find(params[:id])
+end
+
  def destroy
   @question = Question.find(params[:question_id])
   @comment = @question.comments.find(params[:id])
