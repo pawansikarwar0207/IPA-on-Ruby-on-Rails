@@ -23,13 +23,7 @@ Rails.application.routes.draw do
 
   resources :questions do
     resources :user_reactions, only: [:create, :destroy]
-  end
-
-  resources :questions do
     resources :questions, only: [:create, :destroy]
-  end
-
-  resources :questions do
     resources :comments
   end
 

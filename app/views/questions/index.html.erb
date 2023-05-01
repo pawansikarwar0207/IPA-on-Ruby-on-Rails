@@ -52,9 +52,11 @@
 					</div>
 				</div>
 			</div>
+			<div>
+				<%= render partial: "comments/form", locals: { commentable: question } %>
+			</div>
 		</div>
 	</div>
-
 	<% end -%>
 	<%= paginate @questions %>
 </div>

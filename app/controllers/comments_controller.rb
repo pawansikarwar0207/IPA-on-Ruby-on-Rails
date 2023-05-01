@@ -15,16 +15,48 @@ class CommentsController < ApplicationController
    end 
  end
 
- def show
-  @question = Question.find(params[:id])
-end
-
  def destroy
   @question = Question.find(params[:question_id])
   @comment = @question.comments.find(params[:id])
   @comment.destroy
   redirect_to questions_path
 end
+
+def new
+  @question = Question.find(params[:question_id])
+  @comment = @question.comments.new
+end
+
+def edit
+  respond_to do |format|
+    @question = Question.find(params[:question_id])
+    @comment = Comment.find(params[:id])
+    format.js
+    format.html
+  end
+end
+
+
+def update
+  @question = Question.find(params[:question_id])
+  @comment = @question.comments.find(params[:id])
+
+  if @comment.update(comment_params)
+    flash[:notice] = "Comment has been updated"
+    redirect_to questions_path
+  else
+    flash[:notice] = "Something went wrong."
+    render :edit
+  end
+end
+
+
+def show
+  @question = Question.find(params[:id])
+  @comment = @question.comments.build
+  render :edit
+end
+
 
 private
 

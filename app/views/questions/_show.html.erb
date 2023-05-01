@@ -59,7 +59,9 @@
   </div>
   <div class="container mt-3">
     <%= render partial: "comments/comment", locals: { commentable: @question } %>
-    <%= render partial: "comments/form", locals: { commentable: @question } %>
+    <% if @comment.present? %>
+    <%= render partial: "comments/edit", locals: { commentable: @question, comment: @comment } %>
+    <% end %>
   </div>
 </div>
 
