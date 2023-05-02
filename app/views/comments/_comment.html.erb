@@ -2,7 +2,6 @@
 <div class="container mt-4">
   <strong class="mt-3 mb-3">Comments : </strong>
   <% commentable.comments.each do |comment| %>
-  <% if current_user == comment.user || comment.mentions.include?(current_user) %>
   <div class="row mb-3 mt-3 border">
     <div class="col-lg-6 mt-2 mb-2">
       <small>by <%= comment.user.full_name %></small><br>
@@ -17,11 +16,15 @@
       <small class="float-end">Posted : <%= time_ago_in_words(comment.created_at) %> ago </small><br>
       <% end %>
       <div>
-        <%= button_to "Delete", [@question, comment], class: "btn btn-danger btn-sm  mt-3 float-end ", method: :delete %>
+        <% if current_user == comment.user %>
+          <%= button_to "Delete", [@question, comment], class: "btn btn-danger btn-sm  mt-3 float-end ", method: :delete %>
+        <% end -%>
       </div>
 
       <!-- Modal for edit the comment -->
-      <%= link_to "Edit", edit_question_comment_path(@question, comment), class: "btn btn-primary btn-sm mb-2 me-2 mt-3  float-end", data: { bs_toggle: "modal", bs_target:"#editCommentModal", remote: true} %>
+      <% if current_user == comment.user %>
+        <%= link_to "Edit", edit_question_comment_path(@question, comment), class: "btn btn-primary btn-sm mb-2 me-2 mt-3  float-end", data: { bs_toggle: "modal", bs_target:"#editCommentModal", remote: true} %>
+      <% end -%>
 
       <!-- Modal -->
       <div class="modal fade" id="editCommentModal" tabindex="-1" aria-labelledby="editCommentModalLabel" aria-hidden="true">
@@ -38,6 +41,5 @@
       </div>
     </div>    
   </div>
-  <% end %>
   <% end %>
 </div>
