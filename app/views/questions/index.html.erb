@@ -1,69 +1,71 @@
 <div class="col-lg-10 mx-auto">
-	<div class="card mb-3 rounded-0">
-		<div class="card-body">
-			<h2 class="card-title text-center">Questions</h2>
-		</div>
-	</div>
+  <div class="card mb-3 rounded-0">
+    <div class="card-body">
+      <h2 class="card-title text-center">Questions</h2>
+    </div>
+  </div>
 
-	<!-- Search the Questions with keywords -->
-	<a class="btn btn-primary mb-2 " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-		Search with Keywords
-	</a>
+  <!-- Search the Questions with keywords -->
+  <a class="btn btn-primary mb-2 " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+    Search with Keywords
+  </a>
 
-	<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-		<div class="offcanvas-header">
-			<h5 class="offcanvas-title" id="offcanvasExampleLabel">Search with Keywords</h5>
-			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-		</div>
-		<div class="offcanvas-body">
-			<div>
-				<%= search_form_for @q do |form| %>
-				<div class="form-group">
-					<%= form.label :keywords %>
-					<%= form.search_field :keywords_cont, class: "form-control mt-2 mb-2" %>
-					<%= form.submit class: "btn btn-primary mt-2 mb-2" %>
-				</div>	
-				<% end %>
-			</div>
-		</div>
-	</div>
+  <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Search with Keywords</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div>
+        <%= search_form_for @q do |form| %>
+        <div class="form-group">
+          <%= form.label :keywords %>
+          <%= form.search_field :keywords_cont, class: "form-control mt-2 mb-2" %>
+          <%= form.submit class: "btn btn-primary mt-2 mb-2" %>
+        </div>  
+        <% end %>
+      </div>
+    </div>
+  </div>
 
-	<% @questions.each do |question| %>
-	<div class="card mt-2 mb-3">
-		<div class="card-body">
-			<div class="fw-bold">
-				<%= question.title %>
-			</div>
-			<%= link_to 'View Answer', question_path(question), class: 'btn btn-primary mt-3 mb-3', data: {bs_toggle: 'modal', bs_target: '#viewAnswerModal', remote: true}  %>
+  <%= link_to "Export Question", questions_path(format: :csv), class: "btn btn-primary mb-2" %>
 
-			<!-- Modal -->
-			<div class="modal fade" id="viewAnswerModal" tabindex="-1" aria-labelledby="viewAnswerModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="viewAnswerModalLabel">Answer</h5>
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div id="viewAnswerPage">
-						</div>
-						<div class="modal-footer mt-4">
-							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div>
-				<%= render partial: "comments/form", locals: { commentable: question } %>
-			</div>
-		</div>
-	</div>
-	<% end -%>
-	<%= paginate @questions %>
+  <% @questions.each do |question| %>
+  <div class="card mt-2 mb-3">
+    <div class="card-body">
+      <div class="fw-bold">
+        <%= question.title %>
+      </div>
+      <%= link_to 'View Answer', question_path(question), class: 'btn btn-primary mt-3 mb-3', data: {bs_toggle: 'modal', bs_target: '#viewAnswerModal', remote: true}  %>
+
+      <!-- Modal -->
+      <div class="modal fade" id="viewAnswerModal" tabindex="-1" aria-labelledby="viewAnswerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="viewAnswerModalLabel">Answer</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="viewAnswerPage">
+            </div>
+            <div class="modal-footer mt-4">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <%= render partial: "comments/form", locals: { commentable: question } %>
+      </div>
+    </div>
+  </div>
+  <% end -%>
+  <%= paginate @questions %>
 </div>
 <style>
-	.modal-backdrop.show{
-		z-index: unset;
-	}
+  .modal-backdrop.show{
+    z-index: unset;
+  }
 </style>
 
 

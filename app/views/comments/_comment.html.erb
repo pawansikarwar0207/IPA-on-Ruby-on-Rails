@@ -11,9 +11,9 @@
     </div>
     <div class="col-lg-6 mt-2 mb-2">
       <% if (comment.updated_at - comment.created_at) > 1 %>
-      <small class="float-end">Edited : <%= time_ago_in_words(comment.updated_at) %> ago </small>
+        <small class="float-end">Edited : <%= time_ago_in_words(comment.updated_at) %> ago </small>
       <% else %>
-      <small class="float-end">Posted : <%= time_ago_in_words(comment.created_at) %> ago </small><br>
+        <small class="float-end">Posted : <%= time_ago_in_words(comment.created_at) %> ago </small><br>
       <% end %>
       <div>
         <% if current_user == comment.user %>

@@ -1,3 +1,4 @@
+
 class Question < ApplicationRecord
 	paginates_per 10
 
@@ -21,6 +22,17 @@ class Question < ApplicationRecord
 
 	validates :title, presence: true
 	
+	def self.to_csv
+		attributes = Question.column_names
+		
+		CSV.generate(headers: true) do |csv|
+			csv << attributes
+
+			all.each do |question|
+				csv << attributes.map {|attr| question.send(attr)}
+			end
+		end
+	end
 
 
 	# Method to calculate user reactions count for a specific reaction type

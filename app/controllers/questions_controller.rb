@@ -8,6 +8,10 @@ class QuestionsController < ApplicationController
       @q = Question.is_premium.ransack(params[:q])
     end
     @questions = @q.result(distinct: true).most_liked.includes(:likes, :users).page(params[:page])
+    respond_to do |format|
+      format.html
+      format.csv { send_data @q.result.to_csv, filename: "Question-#{DateTime.current}.csv" }
+    end
   end
 
   def show
