@@ -27,9 +27,11 @@ Rails.application.routes.draw do
     resources :comments
   end
 
+  
 
   namespace :admin do
     resources :questions
+    get 'dashboard' => 'dashboard#index'
   end
 
   

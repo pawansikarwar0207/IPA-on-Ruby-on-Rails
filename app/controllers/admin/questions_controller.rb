@@ -1,20 +1,60 @@
 class Admin::QuestionsController < ApplicationController
+  layout 'admin'
+
   before_action :authenticate_user!
 
+  before_action :set_question, only: [:edit, :show, :update, :destroy]
+
   def index
-    if current_user.user_plans.exists?
-      @q = Question.ransack(params[:q])
+    @questions = Question.all.page(params[:page])
+  end
+
+  def new
+    @question = Question.new
+  end
+
+  def create
+    @question = Question.new(question_params)
+    if @question.save
+      redirect_to question_path
     else
-      @q = Question.is_premium.ransack(params[:q])
-    end
-    @questions = @q.result(distinct: true).most_liked.includes(:likes, :users).page(params[:page])
-    respond_to do |format|
-      format.html
-      format.csv { send_data @q.result.to_csv, filename: "Question-#{DateTime.current}.csv" }
+      render :new
     end
   end
 
   def show
+
+  end
+
+  def edit
+
+  end
+
+
+  def update
+    if @question.update(question_params)
+      redirect_to question_path
+    else
+      render :edit
+    end
+  end
+
+
+  def destroy
+    if @question.destroy
+      redirect_to question_path
+    end
+  end
+
+
+
+  private
+
+  def question_params
+    params.require(:question).permit(:title, :keywords, :is_premium, :answer)
+  end
+
+  def set_question
     @question = Question.find(params[:id])
   end
 
