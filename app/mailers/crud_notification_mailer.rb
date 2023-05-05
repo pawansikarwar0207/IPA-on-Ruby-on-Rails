@@ -11,12 +11,4 @@ class CrudNotificationMailer < ApplicationMailer
       )
 
   end
-
-  def update_notification
-
-  end
-
-  def delete_notification
-
-  end
 end

@@ -5,15 +5,4 @@ class CrudNotificationMailerPreview < ActionMailer::Preview
   def create_notification
     CrudNotificationMailer.with(user: User.first, question: Question).create_notification
   end
-
-  # Preview this email at http://localhost:3000/rails/mailers/crud_notification_mailer/update_notification
-  def update_notification
-    CrudNotificationMailer.update_notification
-  end
-
-  # Preview this email at http://localhost:3000/rails/mailers/crud_notification_mailer/delete_notification
-  def delete_notification
-    CrudNotificationMailer.delete_notification
-  end
-
 end
