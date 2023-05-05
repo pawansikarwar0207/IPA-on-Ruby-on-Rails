@@ -16,6 +16,7 @@ class Admin::QuestionsController < ApplicationController
   def create
     @question = Question.new(question_params)
     if @question.save
+      CrudNotificationMailer.with(user: current_user, question: @question).create_notification.deliver_now
       redirect_to admin_questions_path
     else
       render :new
