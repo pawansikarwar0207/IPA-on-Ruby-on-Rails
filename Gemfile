@@ -51,6 +51,7 @@ gem "image_processing", "~> 1.2"
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -81,6 +82,7 @@ gem 'razorpay'
 gem 'omniauth'
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection', '~> 1.0'
-gem 'dotenv-rails'
 gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'kaminari'
+
+gem 'stripe'

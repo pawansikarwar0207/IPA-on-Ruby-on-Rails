@@ -2,6 +2,8 @@ class PlansController < ApplicationController
 	before_action :authenticate_user!
 	def index
 		@plans = Plan.user_plans
+		@selected_plan = params[:selected_plan] # get selected plan parameter from URL
+  	@plan = Plan.find_by(name: @selected_plan) if @selected_plan.present? # set @plan based on selected plan parameter
 	end
 
 	def add_user_plan
@@ -21,8 +23,38 @@ class PlansController < ApplicationController
 		redirect_to plans_path
 	end
 
+	def show
+		@plan = Plan.find(params[:id])
+		@user = current_user
+		@user_plans = @user.user_plans
+		@plan_ids = @user_plans.pluck(:plan_id)
+		render locals: { plan: @plan }
+	end
 
-	
+	def create
+		@stripe_service = StripeService.new
+		@plan = Plan.find(params[:plan_id])
+		@user = User.find_by(email: params[:email])
+		unless @user.present?
+			@user = User.create(user_params)
+		end
+
+		@stripe_customer = @stripe_service.find_or_create_customer(@user)
+		@card = @stripe_service.create_stripe_customer_card(card_token_params, @stripe_customer)
+		@amount_to_be_paid = params[:plan_price].to_i
+		@charge = @stripe_service.create_stripe_charge(@amount_to_be_paid, @stripe_customer.id, @card.id, @plan)
+		@plan = 
+	end
+
+	private
+
+	def user_params
+		params.permit(:full_name, :email, :contact_number)
+	end
+
+	def card_token_params
+		params.permit(:card_number, :exp_month, :exp_year, :cvv)
+	end
 	
 end
 

@@ -1,0 +1,103 @@
+<% plan_ids = current_user.user_plans.pluck(:plan_id).uniq %>
+<div class="col-lg-4">
+  <ul class="list-group">
+    <li class="list-group-item mt-3 mb-3 <%= (plan_ids.include? plan.id) ?  'active': ''  %> " aria-current="true"> 
+      <h4 class="card-tittle mb-4">Plan Detail</h4>
+      <hr>
+      <% if plan_ids.include? plan.id %>
+      <p class="badge bg-success fs-6">Active Plan</p><br>
+      <p class="fw-bold">Plan End date : <%= plan.user_plans.first.end_date %></p>
+      <p class="fw-bold">Days remaining in plan : <%= current_user.user_plans.first.remaining_days %> days</p>
+      <% else %>
+
+      <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planModal">
+        Get Plan
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade" id="planModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">x
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body fs-5">
+              Are you sure you want to change your plan ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <%= link_to 'Change Plan', add_user_plan_path(plan_id: plan.id), class:"btn  btn-primary", remote: true %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <%#= link_to 'Get Plan', add_user_plan_path(plan_id: plan.id), class:"btn  btn-primary", remote: true %>
+      <% end %>
+      <%= link_to 'Back', plans_path, class:'btn btn-secondary' %>
+    </li>
+  </ul>
+</div>
+<div class="col-lg-4 mt-3">
+  <div class="card shadow">
+    <div class="card-body">
+      <h4 class="card-tittle">Get Your Plan</h4>
+      <%= form_with url:"#", data: { turbo: false } do |form| %>
+      <%= form.hidden_field :plan_id, value: @plan_id %>
+      <div class="form-group">
+        <%= form.label :full_name %>
+        <%= form.text_field :full_name, class:'form-control mt-2 mb-2', required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :email %>
+        <%= form.text_field :email, class:'form-control mt-2 mb-2', required: true %>
+      </div>
+      <div class="form-group">
+        <%= form.label :contact_number %>
+        <%= form.text_field :contact_number, class:'form-control mt-2 mb-2', required: true %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :your_selected_plan %>
+        <%= form.text_field :your_selected_plan, class: 'form-control mt-2 mb-2', readonly: true, value: @plan.name ? "#{@plan.name}" : "none", id: 'plan-name' %>
+        <%#= select_tag :select_your_plan, options_for_select([["Choose your plan", ""], ["Monthly", "monthly"], ["Quarterly", "quarterly"], ["Half Yearly", "half_yearly"], ["Yearly", "yearly"]], selected: @plan.name), class: 'form-control mt-2 mb-2', id: 'plan-select' %>
+      </div>
+
+      <div class="form-group">
+        <%= form.label :plan_price %>
+        <%= form.text_field :plan_price, class: 'form-control mt-2 mb-2', readonly: true, value: @plan.price ? "#{@plan.price}" : "none", id: 'plan-price' %>
+      </div>
+
+      <h4 class="mt-4 mb-3">Card Detail</h4>
+      <hr>
+      <div class="form-group">
+        <%= form.label :card_number %>
+        <%= form.text_field :card_number, class:'form-control mt-2 mb-2' %>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="form-group">
+            <%= form.label :cvv %>
+            <%= form.text_field :cvv, class:'form-control mt-2 mb-2', maxlength: 4 %>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="form-group">
+            <%= form.label :exp_month %>
+            <%= form.number_field :exp_month, class:'form-control mt-2 mb-2', min: 1, max: 12 %>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="form-group">
+            <%= form.label :exp_year %>
+            <%= form.number_field :exp_year, class:'form-control mt-2 mb-2', min: 2023, max: 2029 %>
+          </div>
+        </div>
+        <div class="d-grid gap-2 mt-3 mb-3">
+          <%= form.submit "Get Your Plan", class: 'btn btn-outline-danger' %>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

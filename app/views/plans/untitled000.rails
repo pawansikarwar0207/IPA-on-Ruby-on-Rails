@@ -1,0 +1,22 @@
+<div class="col-lg-8 mx-auto">
+	<div class="card">
+		<div class="card-body">
+			<h2 class="card-title text-center">Subsription Plan</h2>
+		</div>
+	</div>
+	<div class="row">
+		<ul class="list-group">
+			<% @plans.each do |plan| %>
+			<li class="list-group-item mt-3 mb-3 <%= (plan_ids.include? plan.id) ?  'active': ''  %> " aria-current="true"> 
+				<div class="mb-2 ">
+					<strong> <%= plan.name  %> </strong> 
+				</div>
+				<div class="mb-2">
+					<strong> <%= plan.price  %> </strong> 
+				</div>
+				<%= link_to 'See Plans', plan, class: 'btn btn-secondary' %>
+			</li>
+			<% end -%>
+		</ul>
+	</div>	
+</div>

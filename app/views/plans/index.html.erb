@@ -1,4 +1,4 @@
-<% plan_ids = current_user.user_plans.pluck(:plan_id).uniq %>
+
 <div class="col-lg-8 mx-auto">
 	<div class="card">
 		<div class="card-body">
@@ -6,47 +6,20 @@
 		</div>
 	</div>
 	<div class="row">
-		<ul class="list-group">
-			<% @plans.each do |plan| %>
-			<li class="list-group-item mt-3 mb-3 <%= (plan_ids.include? plan.id) ?  'active': ''  %> " aria-current="true"> 
-				<div class="mb-2 ">
-					<strong> <%= plan.name  %> </strong> 
-				</div>
-				<div class="mb-2">
-					<strong> <%= plan.price  %> </strong> 
-				</div>
-				<% if plan_ids.include? plan.id %>
-				<p class="badge bg-success fs-6">Active Plan</p>
-				<p class="fw-bold">Days remaining in plan : <%= current_user.user_plans.first.remaining_days %></p>
-				<p class="fw-bold">Plan End date : <%= plan.user_plans.first.end_date %></p>
-				<% else %>
-
-				<!-- Button trigger modal -->
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#planModal">
-					Get Plan
-				</button>
-
-				<!-- Modal -->
-				<div class="modal fade" id="planModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">x
-								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-							</div>
-							<div class="modal-body fs-5">
-								Are you sure you want to change your plan ?
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-								<%= link_to 'Change Plan', add_user_plan_path(plan_id: plan.id), class:"btn  btn-primary", remote: true %>
-							</div>
-						</div>
+		<% @plans.each do |plan| %>
+		<div class="col-lg-6">
+			<ul class="list-group">
+				<li class="list-group-item mt-3 mb-3" aria-current="true"> 
+					<div class="mb-2 ">
+						<strong> <%= plan.name  %> </strong> 
 					</div>
-				</div>
-				<%#= link_to 'Get Plan', add_user_plan_path(plan_id: plan.id), class:"btn  btn-primary", remote: true %>
-				<% end %>
-			</li>
-			<% end -%>
-		</ul>
+					<div class="mb-2">
+						<strong> <%= plan.price  %> </strong> 
+					</div>
+					<%= link_to 'View Plan', plan, class: 'btn btn-primary btn-sm' %>
+				</li>
+			</ul>
+		</div>
+		<% end -%>
 	</div>	
 </div>
