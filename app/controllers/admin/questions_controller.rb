@@ -52,7 +52,7 @@ class Admin::QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :keywords, :is_premium, :answer)
+    params.require(:question).permit(:title, :keywords, :is_premium, :content)
   end
 
   def set_question

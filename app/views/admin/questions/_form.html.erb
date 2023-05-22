@@ -9,14 +9,14 @@
 	<%= form.text_field :keywords, class: "form-control mt-2 mb-2" %>
 </div>
 
-<div class="form-group">
+<div class="form-check">
 	<%= form.label :is_premium? %>
-	<%= form.text_field :is_premium, class: "form-control mt-2 mb-2" %>
+	<%= form.check_box :is_premium, class: "form-check-input" %>
 </div>
 
 <div class="form-group">
-	<%= form.label :answer %>
-	<%= form.text_field :answer, class: "form-control mt-2 mb-2" %>
+	<%= form.label :answer, class:'mt-2 mb-2' %>
+	<%= form.rich_text_area :content, class: "form-control mt-3 mb-2" %>
 </div>
 
 <div class="form-group">

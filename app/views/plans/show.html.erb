@@ -38,6 +38,7 @@
     </li>
   </ul>
 </div>
+
 <div class="col-lg-4 mt-3">
   <div class="card shadow">
     <div class="card-body">
@@ -45,18 +46,17 @@
       <%= form_with url:"#", data: { turbo: false } do |form| %>
       <%= form.hidden_field :plan_id, value: @plan_id %>
       <div class="form-group">
-        <%= form.label :full_name %>
-        <%= form.text_field :full_name, class:'form-control mt-2 mb-2', required: true %>
+        <%= form.label :user_name %>
+        <%= form.text_field :user_name, class: 'form-control mt-2 mb-2', readonly: true, value: @user.full_name ? "#{@user.full_name}" : "none", id: 'user-full-name' %>
       </div>
       <div class="form-group">
         <%= form.label :email %>
-        <%= form.text_field :email, class:'form-control mt-2 mb-2', required: true %>
+        <%= form.text_field :user_email, class: 'form-control mt-2 mb-2', readonly: true, value: @user.email ? "#{@user.email}" : "none", id: 'user-email' %>
       </div>
       <div class="form-group">
         <%= form.label :contact_number %>
-        <%= form.text_field :contact_number, class:'form-control mt-2 mb-2', required: true %>
+        <%= form.text_field :user_contact_number, class: 'form-control mt-2 mb-2', readonly: true, value: @user.contact_number ? "#{@user.contact_number}" : "none", id: 'user-contact-number' %>
       </div>
-
       <div class="form-group">
         <%= form.label :your_selected_plan %>
         <%= form.text_field :your_selected_plan, class: 'form-control mt-2 mb-2', readonly: true, value: @plan.name ? "#{@plan.name}" : "none", id: 'plan-name' %>

@@ -22,8 +22,10 @@ class Question < ApplicationRecord
 
 	validates :title, presence: true
 	
+
+	#CSV
 	def self.to_csv
-		attributes = Question.column_names
+		attributes = %w{ id title keywords answer }
 		
 		CSV.generate(headers: true) do |csv|
 			csv << attributes
