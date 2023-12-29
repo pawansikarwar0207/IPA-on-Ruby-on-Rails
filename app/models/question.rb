@@ -4,7 +4,7 @@ class Question < ApplicationRecord
 
 	validates :title, presence:true, uniqueness:true
 	validates :keywords, presence: true
-	validates :answer, presence: true
+	# validates :answer, presence: true
 
 	# showing the none premium questions
 	scope :is_premium, -> { where(is_premium: false) }
