@@ -78,11 +78,5 @@ gem 'cssbundling-rails'
 gem "letter_opener"
 gem 'ransack'
 
-gem 'razorpay'
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection', '~> 1.0'
-gem 'omniauth-github', github: 'omniauth/omniauth-github', branch: 'master'
 gem 'kaminari'
 
-gem 'stripe'

@@ -1,12 +1,3 @@
-GIT
-  remote: https://github.com/omniauth/omniauth-github.git
-  revision: 0ac46b59ccdabd4cbe5be4a665df269355081915
-  branch: master
-  specs:
-    omniauth-github (2.0.1)
-      omniauth (~> 2.0)
-      omniauth-oauth2 (~> 1.8)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -116,9 +107,6 @@ GEM
     globalid (1.1.0)
       activesupport (>= 5.0)
     hashie (5.0.0)
-    httparty (0.21.0)
-      mini_mime (>= 1.0.0)
-      multi_xml (>= 0.5.2)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     image_processing (1.12.2)
@@ -190,6 +178,9 @@ GEM
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
       rack-protection
+    omniauth-github (2.0.1)
+      omniauth (~> 2.0)
+      omniauth-oauth2 (~> 1.8)
     omniauth-google-oauth2 (1.1.1)
       jwt (>= 2.0)
       oauth2 (~> 2.0.6)
@@ -198,17 +189,14 @@ GEM
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
-    omniauth-rails_csrf_protection (1.0.1)
-      actionpack (>= 4.2)
-      omniauth (~> 2.0)
     orm_adapter (0.5.0)
     public_suffix (5.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
     racc (1.6.2)
     rack (2.2.6.2)
-    rack-protection (3.0.6)
-      rack
+    rack-protection (3.1.0)
+      rack (~> 2.2, >= 2.2.4)
     rack-test (2.0.2)
       rack (>= 1.3)
     rails (7.0.4.2)
@@ -242,8 +230,6 @@ GEM
       activerecord (>= 6.1.5)
       activesupport (>= 6.1.5)
       i18n
-    razorpay (3.0.0)
-      httparty (~> 0.14)
     regexp_parser (2.7.0)
     responders (3.1.0)
       actionpack (>= 5.2)
@@ -326,14 +312,12 @@ DEPENDENCIES
   jbuilder
   kaminari
   letter_opener
-  omniauth
-  omniauth-github!
+  omniauth (>= 1.0.0)
+  omniauth-github
   omniauth-google-oauth2
-  omniauth-rails_csrf_protection (~> 1.0)
   puma (~> 5.0)
   rails (~> 7.0.4, >= 7.0.4.2)
   ransack
-  razorpay
   sassc-rails
   selenium-webdriver
   sprockets-rails

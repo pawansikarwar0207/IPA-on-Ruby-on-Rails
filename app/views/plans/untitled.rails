@@ -19,10 +19,10 @@
 								<strong> <%= plan.price  %> </strong> 
 							</div>
 							<% if plan_ids.include? plan.id %>
-							<p class="badge bg-success fs-6">Current Plan</p>
-							<p class="mt-2 fw-bold">Days remaining in plan: <%= current_user.user_plans.first.remaining_days %></p>
+								<p class="badge bg-success fs-6">Current Plan</p>
+								<p class="mt-2 fw-bold">Days remaining in plan: <%= current_user.user_plans.first.remaining_days %></p>
 							<% else %>
-							<%= link_to 'Get Plan', add_user_plan_path(plan_id: plan.id), class:"btn  btn-primary", remote: true %>
+								<%= link_to 'Get Plan', add_user_plan_path(plan_id: plan.id), class:"btn  btn-primary", remote: true %>
 							<% end %>
 						</div>
 					</div>

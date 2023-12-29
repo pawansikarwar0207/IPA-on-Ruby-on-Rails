@@ -31,6 +31,7 @@ Devise.setup do |config|
     # config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], scope: 'email', callback_url: "https://b747-2405-201-300b-70fb-dc99-cbdf-4f46-a3a3.ngrok.io/users/auth/google_oauth2/callback"
     config.omniauth :google_oauth2, ENV['GOOGLE_OAUTH_CLIENT_ID'], ENV['GOOGLE_OAUTH_CLIENT_SECRET'], scope: 'email', callback_url: "http://localhost:3000/users/auth/google_oauth2/callback", provider_ignores_state: false
 
+    config.omniauth :github, 'YOUR_GITHUB_APP_ID', 'YOUR_GITHUB_APP_SECRET'
 
 
   elsif Rails.env.production?

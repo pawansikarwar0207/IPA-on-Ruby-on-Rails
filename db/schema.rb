@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_17_100216) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_29_111848) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -79,7 +79,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_100216) do
     t.string "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "stripe_transaction_id"
     t.integer "user_id"
     t.integer "plan_id"
     t.index ["plan_id"], name: "index_plans_on_plan_id"
@@ -102,6 +101,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_100216) do
     t.datetime "updated_at", null: false
     t.date "start_date"
     t.date "end_date"
+    t.string "stripe_transaction_id"
     t.index ["plan_id"], name: "index_user_plans_on_plan_id"
     t.index ["user_id"], name: "index_user_plans_on_user_id"
   end
